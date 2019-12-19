@@ -3,8 +3,9 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.1</Version>
-    <Description>常用工具类</Description>
+    <Version>0.1.2</Version>
+    <Description>常用工具类
+# 移除 ZMySQLHelper</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
@@ -18,16 +19,6 @@
 
   <ItemGroup Condition="'$(TargetFramework)'=='net45'">
     <Reference Include="System.Net.Http" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="MySql.Data.EntityFrameworkCore">
-      <Version>6.10.7</Version>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)'=='net45'">
-    <PackageReference Include="MySql.Data.Entity" Version="6.9.12" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net45'">
