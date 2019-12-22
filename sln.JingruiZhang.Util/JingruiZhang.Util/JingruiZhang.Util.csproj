@@ -3,10 +3,12 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.2</Version>
-    <Description>常用工具类
-# 移除 ZMySQLHelper</Description>
+    <Version>0.1.3</Version>
+    <Description>常用工具类</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/JingruiZhang/rep.JingruiZhang.Util</PackageProjectUrl>
+    <PackageReleaseNotes>0.1.3
+# 添加序列化及反序列化的方法，.netstandard 及 .net Framework 分别实现</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
@@ -23,6 +25,14 @@
 
   <ItemGroup Condition="'$(TargetFramework)'=='net45'">
     <Reference Include="System.Transactions" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net45'">
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
 
 </Project>

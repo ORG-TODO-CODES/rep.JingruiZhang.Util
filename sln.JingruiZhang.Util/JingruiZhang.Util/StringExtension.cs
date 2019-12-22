@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+#if NET45
+using System.Web.Script.Serialization;
+#else
+using Newtonsoft.Json;
+#endif
 
 namespace JingruiZhang.Util
 {
@@ -11,6 +16,28 @@ namespace JingruiZhang.Util
     /// </summary>
     public static class StringExtension
     {
+        /// <summary>
+        /// 字符串反序列化为对象。.netFramework 及 .netstandard 分别进行实现
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static T Deserialize<T>(this string input)
+            where T:class
+        {
+            if (input == null)
+            {
+                throw new ArgumentNullException("input");
+            }
+#if NET45
+            JavaScriptSerializer jser = new JavaScriptSerializer();
+            return jser.Deserialize(input, typeof(T)) as T;
+#else
+            T retv = JsonConvert.DeserializeObject(input) as T;
+            return retv;
+#endif
+        }
+
         /// <summary>
         /// 字符串转 Int32
         /// </summary>
