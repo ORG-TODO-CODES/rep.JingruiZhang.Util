@@ -3,12 +3,12 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.5</Version>
+    <Version>0.1.6</Version>
     <Description>常用工具类</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/JingruiZhang/rep.JingruiZhang.Util</PackageProjectUrl>
-    <PackageReleaseNotes>0.1.5
-# 补充 ConcatToString 方法</PackageReleaseNotes>
+    <PackageReleaseNotes>0.1.6
+# 补充 Deserialize 重载</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">

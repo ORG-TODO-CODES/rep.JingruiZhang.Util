@@ -152,6 +152,29 @@ namespace JingruiZhang.Util
         }
 
         /// <summary>
+        /// 字符串反序列化为对象。.netFramework 及 .netstandard 分别进行实现
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static T Deserialize<T>(this string input, int _MaxJsonLength)
+         where T : class
+        {
+            if (input == null)
+            {
+                throw new ArgumentNullException("input");
+            }
+#if NET45
+            JavaScriptSerializer jser = new JavaScriptSerializer() { MaxJsonLength = _MaxJsonLength };
+            return jser.Deserialize(input, typeof(T)) as T;
+#else
+            T retv = JsonConvert.DeserializeObject(input) as T;
+            return retv;
+#endif
+        }
+
+
+        /// <summary>
         /// 字符串转 Int32
         /// </summary>
         /// <param name="input">输入的字符串，可以为null</param>
