@@ -233,5 +233,124 @@ Content-Type: image/svg+xml
 
             return retString;
         }
+
+        /// <summary>
+        /// 发送 post 请求（带文件，带Cookies）
+        /// </summary>
+        /// <param name="url">post 目标地址</param>
+        /// <param name="Cookies">Cookies数据</param>
+        /// <param name="datas">普通 name 及值</param>
+        /// <param name="filenameAndPaths">文件的name及文件路径</param>        
+        public static string Post_WithFile(string url, List<Cookie> Cookies, Dictionary<string, string> datas
+            , Dictionary<string, string> filenameAndPaths, string boundary = "ceshi")
+        {
+            string Enter = "\r\n";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "POST";
+            request.ContentType = "multipart/form-data;boundary=" + boundary;
+            if (Cookies!=null && Cookies.Count > 0)
+            {
+                request.CookieContainer = new CookieContainer();
+                for (int i = 0; i < Cookies.Count; i++)
+                {
+                    request.CookieContainer.Add(Cookies[i]);
+                }
+            }
+            Stream myRequestStream = request.GetRequestStream();//定义请求流
+            #region 将流中写入keyvalue及文件
+
+            #region 示例 formdata 数据
+            /*
+------WebKitFormBoundaryOIe2pJynlMDNGrnD
+Content-Disposition: form-data; name="ProjectID"
+
+c14075a2-6c91-1fdb-3fbe-76bf898c24cf
+------WebKitFormBoundaryOIe2pJynlMDNGrnD
+Content-Disposition: form-data; name="FolderID"
+
+c14075a2-6c91-1fdb-3fbe-76bf898c24cf
+------WebKitFormBoundaryOIe2pJynlMDNGrnD
+Content-Disposition: form-data; name="CreateUserName"
+
+System
+------WebKitFormBoundaryOIe2pJynlMDNGrnD
+Content-Disposition: form-data; name="CreateUserID"
+
+System
+------WebKitFormBoundaryOIe2pJynlMDNGrnD
+Content-Disposition: form-data; name="NormalOrDrawings"
+
+Normal
+------WebKitFormBoundaryOIe2pJynlMDNGrnD
+Content-Disposition: form-data; name="IsSaveVersion"
+
+1
+------WebKitFormBoundaryOIe2pJynlMDNGrnD
+Content-Disposition: form-data; name="F_0_1558419830545"; filename="arrow-down_outline.svg"
+Content-Type: image/svg+xml
+
+
+------WebKitFormBoundaryOIe2pJynlMDNGrnD--
+             */
+            #endregion           
+
+            #region 遍历每一个key
+            foreach (var item in datas)
+            {
+                string itemstr = "--" + boundary + Enter
+                    + "Content-Disposition: form-data; name=\"" + item.Key + "\"" + Enter + Enter
+                    + item.Value + Enter;
+                byte[] itembytes = Encoding.UTF8.GetBytes(itemstr);
+                myRequestStream.Write(itembytes, 0, itembytes.Length);
+            }
+            #endregion
+
+            #region 遍历每一个文件
+            foreach (var filefd in filenameAndPaths)
+            {
+                string fileContentStr = "--" + boundary + Enter
+                        + "Content-Type:application/octet-stream" + Enter
+                        + "Content-Disposition: form-data; name=\"" + filefd.Key + "\"; filename=\"" +
+                        Path.GetFileName(filefd.Value)
+                        + "\"" + Enter + Enter;
+                byte[] fileContentStrByte = Encoding.UTF8.GetBytes(fileContentStr);
+                myRequestStream.Write(fileContentStrByte, 0, fileContentStrByte.Length);
+
+                //myRequestStream.Write(fileContentByte, 0, fileContentByte.Length);
+                FileStream fs = new FileStream(filefd.Value, FileMode.Open, FileAccess.Read);
+                byte[] fileContentByte = new byte[fs.Length]; // 二进制文件
+                fs.Read(fileContentByte, 0, Convert.ToInt32(fs.Length));
+                fs.Close();
+                fs.Dispose();
+                myRequestStream.Write(fileContentByte, 0, fileContentByte.Length);
+
+                //Enter
+                string EnterStr = Enter;
+                byte[] enterBytes = Encoding.UTF8.GetBytes(EnterStr);
+                myRequestStream.Write(enterBytes, 0, enterBytes.Length);
+            }
+            #endregion
+
+            // 添加 end boundary
+            string EndStr = "--" + boundary + "--";
+            byte[] endBytes = Encoding.UTF8.GetBytes(EndStr);
+            myRequestStream.Write(endBytes, 0, endBytes.Length);
+
+            #endregion
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();//发送
+
+            Stream myResponseStream = response.GetResponseStream();//获取返回值
+            StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
+
+            string retString = myStreamReader.ReadToEnd();
+
+            myStreamReader.Close();
+            myResponseStream.Close();
+            myStreamReader.Dispose();
+            myResponseStream.Dispose();
+
+            return retString;
+        }
     }
 }
