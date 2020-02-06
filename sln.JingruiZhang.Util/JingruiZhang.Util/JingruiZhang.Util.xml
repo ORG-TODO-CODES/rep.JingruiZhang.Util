@@ -4,34 +4,6 @@
         <name>JingruiZhang.Util</name>
     </assembly>
     <members>
-        <member name="T:JingruiZhang.Util.ImageHelper">
-            <summary>
-            Image 帮助类
-            </summary>
-        </member>
-        <member name="M:JingruiZhang.Util.ImageHelper.GetImageMD5(System.Drawing.Image)">
-            <summary>
-            获取 Image 对象的 MD5
-            </summary>
-            <param name="img"></param>
-            <returns></returns>
-        </member>
-        <member name="M:JingruiZhang.Util.ImageHelper.ImageToBase64String(System.Drawing.Image,System.Drawing.Imaging.ImageFormat)">
-            <summary>
-            Image 转为 base64编码的文本
-            </summary>
-            <param name="bmp">待转的Bitmap</param>
-            <returns>转换后的base64字符串</returns>
-        </member>
-        <member name="M:JingruiZhang.Util.ImageHelper.Idispose_BigToSmallImage(System.Int32,System.Int32,System.Drawing.Image,System.Drawing.Drawing2D.InterpolationMode,System.Drawing.Drawing2D.SmoothingMode)">
-            <summary>
-            按照指定的高和宽生成缩略图
-            </summary>
-            <param name="width">指定宽度</param>
-            <param name="height">指定高度</param>
-            <param name="imageFrom">原图片</param>
-            <returns>返回新生成的图</returns>
-        </member>
         <member name="T:JingruiZhang.Util.ObjectExtension">
             <summary>
             Object 扩展方法
@@ -203,6 +175,48 @@
             <param name="datas">普通 name 及值</param>
             <param name="filenameAndPaths">文件的name及文件路径</param>        
         </member>
+        <member name="T:JingruiZhang.Util.ZImageHelper">
+            <summary>
+            Image 帮助类
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ZImageHelper.GetImageMD5(System.Drawing.Image)">
+            <summary>
+            获取 Image 对象的 MD5
+            </summary>
+            <param name="img"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZImageHelper.ImageToBase64String(System.Drawing.Image,System.Drawing.Imaging.ImageFormat)">
+            <summary>
+            Image 转为 base64编码的文本
+            </summary>
+            <param name="bmp">待转的Bitmap</param>
+            <returns>转换后的base64字符串</returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZImageHelper.Idispose_BigToSmallImage(System.Int32,System.Int32,System.Drawing.Image,System.Drawing.Drawing2D.InterpolationMode,System.Drawing.Drawing2D.SmoothingMode)">
+            <summary>
+            按照指定的高和宽生成缩略图
+            </summary>
+            <param name="width">指定宽度</param>
+            <param name="height">指定高度</param>
+            <param name="imageFrom">原图片</param>
+            <returns>返回新生成的图</returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZImageHelper.Idispose_FromJSBase64(System.String)">
+            <summary>
+            将 base64 字符串转为 Image 对象（Image对象在使用后记得dispose)
+            </summary>
+            <param name="JSBase64">以data:image/jpeg;base64...开头的字符串</param>
+            <returns>需要使用和进行Dispose的Image对象</returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZImageHelper.GetExtensionName(System.String)">
+            <summary>
+            获取指定图片 base64 的扩展名
+            </summary>
+            <param name="imageBase64">指定图片的 base64</param>
+            <returns>扩展名（不包含.）</returns>
+        </member>
         <member name="M:JingruiZhang.Util.ZListHelper.ConcatToString(System.Collections.Generic.List{System.String},System.Char)">
             <summary>
             使用分隔符拼接字符串集合为一个新字符串（拼接后末尾无分隔符）
@@ -229,6 +243,57 @@
             </summary>
             <param name="input"></param>
             <returns></returns>
+        </member>
+        <member name="T:JingruiZhang.Util.ZWebAPIHelper">
+            <summary>
+            WebAPI 帮助类
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ZWebAPIHelper.GetExcelPackageStream(System.Action{System.IO.MemoryStream})">
+            <summary>
+            创建 ExcelPackage 内存流，并使用特定方式填充内容
+            </summary>
+            <param name="saveAction">package.SaveAs(memorystream);</param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZWebAPIHelper.CreateDownloadResponse(System.IO.Stream,System.String,System.String,System.Net.HttpStatusCode,System.String)">
+            <summary>
+            创建文件下载的响应消息，调用示例：CreateDownloadResponse(packageMemoryStream, "示例.xlsx", "application/octet-stream")
+            </summary>
+            <param name="stream">内存流</param>
+            <param name="originfilename">文件名称（未EnCode）</param>
+            <param name="contenttype">application/octet-stream</param>
+            <param name="statuscode">服务器状态码</param>
+            <param name="ContentDisposition">响应头Disposition的值</param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZWebAPIHelper.CreateDataResponse(System.Net.HttpStatusCode,System.Object)">
+            <summary>
+            返回数据和服务器处理状态
+            </summary>
+            <param name="code">服务器状态码</param>
+            <param name="data">返回业务数据</param>
+        </member>
+        <member name="M:JingruiZhang.Util.ZWebAPIHelper.CreateDataResponse(System.Net.HttpStatusCode,System.Object,System.Int32,System.String)">
+            <summary>
+            返回数据和服务器处理状态
+            </summary>
+            <param name="code">服务器状态码</param>
+            <param name="Data">返回业务数据</param>
+            <param name="Ret">返回1或负数</param>
+            <param name="Msg">OK或错误信息</param>
+        </member>
+        <member name="M:JingruiZhang.Util.ZWebAPIHelper.CreateDataResponse_Exception(System.Exception)">
+            <summary>
+            返回数据和服务器处理状态
+            </summary>
+            <param name="ex">异常对象</param>
+        </member>
+        <member name="M:JingruiZhang.Util.ZWebAPIHelper.CreateDataResponse_Data(System.Object)">
+            <summary>
+            返回数据和服务器处理状态
+            </summary>
+            <param name="data">业务数据对象</param>
         </member>
     </members>
 </doc>

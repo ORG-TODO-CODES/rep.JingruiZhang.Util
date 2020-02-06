@@ -3,12 +3,14 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.7</Version>
+    <Version>0.1.9</Version>
     <Description>常用工具类</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/JingruiZhang/rep.JingruiZhang.Util</PackageProjectUrl>
-    <PackageReleaseNotes>0.1.7
-# Post_WithFile 添加带有 Cookies 的重载</PackageReleaseNotes>
+    <PackageReleaseNotes>0.1.9
+# 添加 ZImageHelper 帮助类
+# 移除 ImageHelper 帮助类
+# 添加 ZWebAPIHelper 帮助类</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
@@ -35,6 +37,7 @@
 
   <ItemGroup Condition="'$(TargetFramework)'=='net45'">
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
   </ItemGroup>
 
 </Project>
