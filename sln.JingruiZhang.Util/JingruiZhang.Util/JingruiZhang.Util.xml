@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>JingruiZhang.Util</name>
+    </assembly>
+    <members>
+        <member name="T:JingruiZhang.Util.ImageHelper">
+            <summary>
+            Image 帮助类
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ImageHelper.GetImageMD5(System.Drawing.Image)">
+            <summary>
+            获取 Image 对象的 MD5
+            </summary>
+            <param name="img"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ImageHelper.ImageToBase64String(System.Drawing.Image,System.Drawing.Imaging.ImageFormat)">
+            <summary>
+            Image 转为 base64编码的文本
+            </summary>
+            <param name="bmp">待转的Bitmap</param>
+            <returns>转换后的base64字符串</returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ImageHelper.Idispose_BigToSmallImage(System.Int32,System.Int32,System.Drawing.Image,System.Drawing.Drawing2D.InterpolationMode,System.Drawing.Drawing2D.SmoothingMode)">
+            <summary>
+            按照指定的高和宽生成缩略图
+            </summary>
+            <param name="width">指定宽度</param>
+            <param name="height">指定高度</param>
+            <param name="imageFrom">原图片</param>
+            <returns>返回新生成的图</returns>
+        </member>
+        <member name="T:JingruiZhang.Util.ObjectExtension">
+            <summary>
+            Object 扩展方法
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ObjectExtension.Serialize(System.Object)">
+            <summary>
+            对象序列化为字符串。.netFramework 及 .netstandard 分别进行实现
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ObjectExtension.ToInt32(System.Object,System.Int32)">
+            <summary>
+            object 转 Int32
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ObjectExtension.ToDouble(System.Object,System.Double)">
+            <summary>
+            object 转 double
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ObjectExtension.ToGuid(System.Object,System.Guid)">
+            <summary>
+            object 转 Guid
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ObjectExtension.ToDateTime(System.Object,System.DateTime)">
+            <summary>
+            object 转 DateTime
+            </summary>
+        </member>
+        <member name="T:JingruiZhang.Util.StringExtension">
+            <summary>
+            String 扩展方法
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.StringExtension.EncryptByAES(System.String,System.String,System.String)">
+            <summary>
+            AES 加密字符串
+            </summary>
+            <param name="input">被加密的字符串</param>
+            <param name="key">加密key，如果长度小于16则自身叠加</param>
+            <param name="AES_IV">AES 算法中指定的 AES_IV</param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.StringExtension.DecryptByAES(System.String,System.String,System.String)">
+            <summary>
+            AES 字符串解密
+            </summary>
+            <param name="input">加密后的字符串</param>
+            <param name="key">加密key，如果长度小于16则自身叠加</param>
+            <param name="AES_IV">AES 算法中指定的 AES_IV</param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.StringExtension.Deserialize``1(System.String)">
+            <summary>
+            字符串反序列化为对象。.netFramework 及 .netstandard 分别进行实现
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.StringExtension.Deserialize``1(System.String,System.Int32)">
+            <summary>
+            字符串反序列化为对象。.netFramework 及 .netstandard 分别进行实现
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.StringExtension.ToInt32(System.String,System.Int32)">
+            <summary>
+            字符串转 Int32
+            </summary>
+            <param name="input">输入的字符串，可以为null</param>
+            <param name="defaultValue">当字符串不能成功地转为 Int32 时，指定的值</param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.StringExtension.ToDouble(System.String,System.Double)">
+            <summary>
+            字符串转 double
+            </summary>
+            <param name="input">输入的字符串，可以为null</param>
+            <param name="defaultValue">当字符串不能成功地转为 double 时，指定的值</param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.StringExtension.ToGuid(System.String,System.Guid)">
+            <summary>
+            字符串转 Guid
+            </summary>
+            <param name="input">输入的字符串，可以为null</param>
+            <param name="defaultValue">当字符串不能成功地转为 double 时，指定的值</param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.StringExtension.ToDateTime(System.String,System.DateTime)">
+            <summary>
+            字符串转 DateTime
+            </summary>
+            <param name="input">输入的字符串，可以为null</param>
+            <param name="defaultValue">当字符串不能成功地转为 double 时，指定的值</param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.StringExtension.ByteArrayToHexString(System.Byte[])">
+            <summary>
+            将一个byte数组转换成一个格式化的16进制字符串
+            </summary>
+            <param name="data">byte数组</param>
+            <returns>格式化的16进制字符串</returns>
+        </member>
+        <member name="M:JingruiZhang.Util.StringExtension.HexStringToByteArray(System.String)">
+            <summary>
+            将指定的16进制字符串转换为byte数组
+            </summary>
+            <param name="s">16进制字符串(如：“7F 2C 4A”或“7F2C4A”都可以)</param>
+            <returns>16进制字符串对应的byte数组</returns>
+        </member>
+        <member name="T:JingruiZhang.Util.ZHttpHelper">
+            <summary>
+            模拟 http 客户端发送请求帮助类
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ZHttpHelper.Get(System.String,System.String@)">
+            <summary>
+            发送 get 请求
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="statusCode">请求响应状态码</param>
+            <returns>请求返回的数据</returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZHttpHelper.Post_Text(System.String,System.String)">
+            <summary>
+            发送 post 请求，在post中对应的 Content-Type 为：raw, Text。
+            </summary>
+            <param name="url">post地址</param>
+            <param name="jsonstr">Text内容</param>
+            <returns>请求返回的数据</returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZHttpHelper.Post_Json(System.String,System.String)">
+            <summary>
+            发送 post 请求，在post中对应的 Content-Type 为：raw, json。
+            </summary>
+            <param name="url">post地址</param>
+            <param name="jsonstr">Text内容</param>
+            <returns>请求返回的数据</returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZHttpHelper.Post(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            发送 post 请求（不带文件），常用于form-data
+            </summary>
+            <param name="url">请求地址</param>
+            <param name="datas">post的数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZHttpHelper.Post_WithFile(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+            发送 post 请求（带文件）
+            </summary>
+            <param name="url">post 目标地址</param>
+            <param name="datas">普通 name 及值</param>
+            <param name="filenameAndPaths">文件的name及文件路径</param>        
+        </member>
+        <member name="M:JingruiZhang.Util.ZHttpHelper.Post_WithFile(System.String,System.Collections.Generic.List{System.Net.Cookie},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+            发送 post 请求（带文件，带Cookies）
+            </summary>
+            <param name="url">post 目标地址</param>
+            <param name="Cookies">Cookies数据</param>
+            <param name="datas">普通 name 及值</param>
+            <param name="filenameAndPaths">文件的name及文件路径</param>        
+        </member>
+        <member name="M:JingruiZhang.Util.ZListHelper.ConcatToString(System.Collections.Generic.List{System.String},System.Char)">
+            <summary>
+            使用分隔符拼接字符串集合为一个新字符串（拼接后末尾无分隔符）
+            </summary>
+            <param name="strList">被拼接的字符串集合</param>
+            <param name="splitter">分隔符</param>
+            <returns></returns>
+        </member>
+        <member name="T:JingruiZhang.Util.ZMD5Helper">
+            <summary>
+            计算 MD5 帮助类
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ZMD5Helper.GetFileMD5(System.String)">
+            <summary>
+            获取文件 MD5 值
+            </summary>
+            <param name="fileName">文件路径，如：D:\1.txt </param>
+            <returns>MD5值</returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZMD5Helper.GetMD5WithString(System.String)">
+            <summary>
+            得到字符串的 MD5 值
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
