@@ -36,6 +36,24 @@ namespace JingruiZhang.Util
         }
 
         /// <summary>
+        /// 获取 stream 的MD5 值
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        public static string GetStreamMD5(Stream stream)
+        {
+            MD5 md5 = MD5.Create();
+            byte[] fileHashBytes;
+            fileHashBytes = md5.ComputeHash(stream);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < fileHashBytes.Length; i++)
+            {
+                sb.Append(fileHashBytes[i].ToString("x2"));
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
         /// 得到字符串的 MD5 值
         /// </summary>
         /// <param name="input"></param>

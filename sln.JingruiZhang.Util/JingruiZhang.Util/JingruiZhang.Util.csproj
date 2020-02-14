@@ -3,14 +3,12 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.9</Version>
+    <Version>0.1.10</Version>
     <Description>常用工具类</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/JingruiZhang/rep.JingruiZhang.Util</PackageProjectUrl>
-    <PackageReleaseNotes>0.1.9
-# 添加 ZImageHelper 帮助类
-# 移除 ImageHelper 帮助类
-# 添加 ZWebAPIHelper 帮助类</PackageReleaseNotes>
+    <PackageReleaseNotes>0.1.10
+# 补充 GetStreamMD5</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">

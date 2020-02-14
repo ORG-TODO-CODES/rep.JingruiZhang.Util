@@ -237,6 +237,13 @@
             <param name="fileName">文件路径，如：D:\1.txt </param>
             <returns>MD5值</returns>
         </member>
+        <member name="M:JingruiZhang.Util.ZMD5Helper.GetStreamMD5(System.IO.Stream)">
+            <summary>
+            获取 stream 的MD5 值
+            </summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
         <member name="M:JingruiZhang.Util.ZMD5Helper.GetMD5WithString(System.String)">
             <summary>
             得到字符串的 MD5 值
