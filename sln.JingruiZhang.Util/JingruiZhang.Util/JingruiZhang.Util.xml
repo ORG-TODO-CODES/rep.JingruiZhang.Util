@@ -121,6 +121,44 @@
             <param name="s">16进制字符串(如：“7F 2C 4A”或“7F2C4A”都可以)</param>
             <returns>16进制字符串对应的byte数组</returns>
         </member>
+        <member name="T:JingruiZhang.Util.ZFileHelper">
+            <summary>
+            文件操作帮助类
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ZFileHelper.WriteToNewPath(System.String,System.Byte[],System.IO.FileMode,System.IO.FileAccess)">
+            <summary>
+            将指定 bytes 写入到新文件
+            </summary>
+            <param name="newfilePath">指定新文件的路径（文件会自动创建）</param>
+            <param name="bytes">文件内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZFileHelper.ReadFromPath(System.String)">
+            <summary>
+            读取指定路径的文件内容到 byte[] 中
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ZFileHelper.SplitLargeFile(System.String,System.String,System.Action{System.String},System.Action,System.Int32)">
+            <summary>
+            分割大文件
+            </summary>
+            <param name="srcLocalPath">被分割源文件的物理路径</param>
+            <param name="targetPathFormat">分割生成每个文件片的路径格式字符串，如：F:\A_{0}.txt</param>
+            <param name="sectionAct">生成每个文件时的回调</param>
+            <param name="finishAct">完成时的回调</param>
+            <param name="splitFileSize">分隔的每个文件大小</param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZFileHelper.MergeSplitFiles(System.Collections.Generic.List{System.String},System.String,System.Action)">
+            <summary>
+            合并被分割的多个文件
+            </summary>
+            <param name="splitFiles">被分割的多个文件</param>
+            <param name="targetPath">合并后的物理路径</param>
+            <param name="finishAct">完成时的回调</param>
+            <returns></returns>
+        </member>
         <member name="T:JingruiZhang.Util.ZHttpHelper">
             <summary>
             模拟 http 客户端发送请求帮助类
