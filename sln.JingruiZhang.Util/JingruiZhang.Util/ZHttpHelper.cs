@@ -4,8 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Authentication;
 
 namespace JingruiZhang.Util
 {
@@ -20,6 +23,7 @@ namespace JingruiZhang.Util
         /// <param name="url">请求地址</param>
         /// <param name="statusCode">请求响应状态码</param>
         /// <returns>请求返回的数据</returns>
+        [Obsolete("未使用Cookie")]
         public static string Get(string url, out string statusCode)
         {
             string result = string.Empty;
@@ -45,6 +49,7 @@ namespace JingruiZhang.Util
         /// <param name="url">post地址</param>
         /// <param name="jsonstr">Text内容</param>
         /// <returns>请求返回的数据</returns>
+        [Obsolete("未使用Cookie")]
         public static string Post_Text(string url, string jsonstr)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
@@ -76,6 +81,7 @@ namespace JingruiZhang.Util
         /// <param name="url">post地址</param>
         /// <param name="jsonstr">Text内容</param>
         /// <returns>请求返回的数据</returns>
+        [Obsolete("未使用Cookie")]
         public static string Post_Json(string url, string jsonstr)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
@@ -107,6 +113,7 @@ namespace JingruiZhang.Util
         /// <param name="url">请求地址</param>
         /// <param name="datas">post的数据</param>
         /// <returns></returns>
+        [Obsolete("未使用Cookie")]
         public static string Post(string url, Dictionary<string, string> datas)
         {
             using (var httpClient = new HttpClient())
@@ -129,7 +136,9 @@ namespace JingruiZhang.Util
         /// </summary>
         /// <param name="url">post 目标地址</param>
         /// <param name="datas">普通 name 及值</param>
-        /// <param name="filenameAndPaths">文件的name及文件路径</param>        
+        /// <param name="filenameAndPaths">文件的name及文件路径</param>
+        /// <param name="boundary">可不传</param>        
+        [Obsolete("未使用Cookie")]
         public static string Post_WithFile(string url, Dictionary<string, string> datas
             , Dictionary<string, string> filenameAndPaths, string boundary = "ceshi")
         {
@@ -235,27 +244,51 @@ Content-Type: image/svg+xml
         }
 
         /// <summary>
-        /// 发送 post 请求（带文件，带Cookies）
+        /// 发送 post 请求，适用于地址带有 QueryString 的地址，且需要使用 Cookie 字符串
         /// </summary>
-        /// <param name="url">post 目标地址</param>
-        /// <param name="Cookies">Cookies数据</param>
-        /// <param name="datas">普通 name 及值</param>
-        /// <param name="filenameAndPaths">文件的name及文件路径</param>        
-        public static string Post_WithFile(string url, List<Cookie> Cookies, Dictionary<string, string> datas
-            , Dictionary<string, string> filenameAndPaths, string boundary = "ceshi")
+        /// <param name="Url">请求地址</param>
+        /// <param name="postQueryPara">请参考可选参数值</param>
+        /// <param name="cookieStrLikePostman">请参考可选参数值</param>
+        /// <returns></returns>
+        public static string Post_Query_Cookie(string Url, string postQueryPara = "Key1=EncodedVal&key2=EncodedValue2", string cookieStrLikePostman = "X-LENOVO-SESS-ID=270b8fd36a6d8; path=/; domain=.filen;")
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
+            request.Method = "POST";
+            if (cookieStrLikePostman != null)
+            {
+                request.Headers.Add("Cookie", cookieStrLikePostman);
+            }
+
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = postQueryPara.Length;
+            StreamWriter writer = new StreamWriter(request.GetRequestStream(), Encoding.ASCII);
+            writer.Write(postQueryPara);
+            writer.Close();
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            string encoding = response.ContentEncoding;
+            if (encoding == null || encoding.Length < 1)
+            {
+                encoding = "UTF-8"; //默认编码  
+            }
+            StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(encoding));
+            string retString = reader.ReadToEnd();
+            return retString;
+        }
+        
+        /// <summary>
+        /// 参考 Post_Query_Cookie 的测试方法
+        /// </summary>
+        public static string Post_WithFile_Cookie(string url, Dictionary<string, string> datas
+            , Dictionary<string, string> filenameAndPaths, string boundary = "ceshi", string cookieStrLikePostman = "")
         {
             string Enter = "\r\n";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
-            request.ContentType = "multipart/form-data;boundary=" + boundary;
-            if (Cookies!=null && Cookies.Count > 0)
+            if (!String.IsNullOrWhiteSpace(cookieStrLikePostman))
             {
-                request.CookieContainer = new CookieContainer();
-                for (int i = 0; i < Cookies.Count; i++)
-                {
-                    request.CookieContainer.Add(Cookies[i]);
-                }
+                request.Headers.Add("Cookie", cookieStrLikePostman);
             }
+            request.ContentType = "multipart/form-data;boundary=" + boundary;
             Stream myRequestStream = request.GetRequestStream();//定义请求流
             #region 将流中写入keyvalue及文件
 
@@ -350,6 +383,30 @@ Content-Type: image/svg+xml
             myStreamReader.Dispose();
             myResponseStream.Dispose();
 
+            return retString;
+        }
+
+        /// <summary>
+        /// 参考 Post_Query_Cookie 的测试方法
+        /// </summary>
+        /// <param name="Url"></param>
+        /// <param name="cookies"></param>
+        /// <returns></returns>
+        public static string Get_Cookie(string Url, string cookies)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
+            request.Method = "GET";
+            if (cookies != null)
+                request.Headers.Add("Cookie", cookies);
+            request.ContentType = "application/x-www-form-urlencoded";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            string encoding = response.ContentEncoding;
+            if (encoding == null || encoding.Length < 1)
+            {
+                encoding = "UTF-8"; //默认编码  
+            }
+            StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(encoding));
+            string retString = reader.ReadToEnd();
             return retString;
         }
     }

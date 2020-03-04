@@ -202,16 +202,30 @@
             </summary>
             <param name="url">post 目标地址</param>
             <param name="datas">普通 name 及值</param>
-            <param name="filenameAndPaths">文件的name及文件路径</param>        
+            <param name="filenameAndPaths">文件的name及文件路径</param>
+            <param name="boundary">可不传</param>        
         </member>
-        <member name="M:JingruiZhang.Util.ZHttpHelper.Post_WithFile(System.String,System.Collections.Generic.List{System.Net.Cookie},System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+        <member name="M:JingruiZhang.Util.ZHttpHelper.Post_Query_Cookie(System.String,System.String,System.String)">
             <summary>
-            发送 post 请求（带文件，带Cookies）
+            发送 post 请求，适用于地址带有 QueryString 的地址，且需要使用 Cookie 字符串
             </summary>
-            <param name="url">post 目标地址</param>
-            <param name="Cookies">Cookies数据</param>
-            <param name="datas">普通 name 及值</param>
-            <param name="filenameAndPaths">文件的name及文件路径</param>        
+            <param name="Url">请求地址</param>
+            <param name="postQueryPara">请参考可选参数值</param>
+            <param name="cookieStrLikePostman">请参考可选参数值</param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZHttpHelper.Post_WithFile_Cookie(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String)">
+            <summary>
+            参考 Post_Query_Cookie 的测试方法
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ZHttpHelper.Get_Cookie(System.String,System.String)">
+            <summary>
+            参考 Post_Query_Cookie 的测试方法
+            </summary>
+            <param name="Url"></param>
+            <param name="cookies"></param>
+            <returns></returns>
         </member>
         <member name="T:JingruiZhang.Util.ZImageHelper">
             <summary>
