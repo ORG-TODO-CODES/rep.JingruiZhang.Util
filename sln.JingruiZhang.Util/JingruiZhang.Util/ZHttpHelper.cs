@@ -409,5 +409,39 @@ Content-Type: image/svg+xml
             string retString = reader.ReadToEnd();
             return retString;
         }
+
+        /// <summary>
+        /// get 请求（携带cookiestr）下载并获取 byte[]（配合 CreateDownloadBytesResponse 使用）
+        /// </summary>
+        /// <param name="Url">下载地址</param>
+        /// <param name="cookies">cookie字符串（参考postman）</param>
+        /// <param name="contentType">默认为二进制文件</param>
+        public static byte[] Get_Bytes_Cookie(string Url, string cookies
+            , string contentType = "application/octet-stream")
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
+            request.Method = "GET";
+            if (cookies != null)
+            {
+                request.Headers.Add("Cookie", cookies);
+            }
+            request.ContentType = contentType;
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            string encoding = response.ContentEncoding;
+            if (encoding == null || encoding.Length < 1)
+            {
+                encoding = "UTF-8"; //默认编码  
+            }
+            Stream ResponseStream = response.GetResponseStream();
+            MemoryStream ms = new MemoryStream();
+            ResponseStream.CopyTo(ms);
+            var Allbuffer = new byte[ms.Length];
+            ms.Seek(0, SeekOrigin.Begin);
+            ms.Read(Allbuffer, 0, Allbuffer.Length);
+            ms.Close();
+            ResponseStream.Close();
+            response.Close();
+            return Allbuffer;
+        }
     }
 }

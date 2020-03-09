@@ -227,6 +227,14 @@
             <param name="cookies"></param>
             <returns></returns>
         </member>
+        <member name="M:JingruiZhang.Util.ZHttpHelper.Get_Bytes_Cookie(System.String,System.String,System.String)">
+            <summary>
+            get 请求（携带cookiestr）下载并获取 byte[]（配合 CreateDownloadBytesResponse 使用）
+            </summary>
+            <param name="Url">下载地址</param>
+            <param name="cookies">cookie字符串（参考postman）</param>
+            <param name="contentType">默认为二进制文件</param>
+        </member>
         <member name="T:JingruiZhang.Util.ZImageHelper">
             <summary>
             Image 帮助类
@@ -320,6 +328,17 @@
             创建文件下载的响应消息，调用示例：CreateDownloadResponse(packageMemoryStream, "示例.xlsx", "application/octet-stream")
             </summary>
             <param name="stream">内存流</param>
+            <param name="originfilename">文件名称（未EnCode）</param>
+            <param name="contenttype">application/octet-stream</param>
+            <param name="statuscode">服务器状态码</param>
+            <param name="ContentDisposition">响应头Disposition的值</param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZWebAPIHelper.CreateDownloadBytesResponse(System.Byte[],System.String,System.String,System.Net.HttpStatusCode,System.String)">
+            <summary>
+            创建文件下载的响应消息，调用示例：CreateDownloadResponse(packageMemoryStream, "示例.xlsx", "application/octet-stream")
+            </summary>
+            <param name="bytes">内存数据</param>
             <param name="originfilename">文件名称（未EnCode）</param>
             <param name="contenttype">application/octet-stream</param>
             <param name="statuscode">服务器状态码</param>

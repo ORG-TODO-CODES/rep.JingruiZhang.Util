@@ -51,6 +51,27 @@ namespace JingruiZhang.Util
         }
 
         /// <summary>
+        /// 创建文件下载的响应消息，调用示例：CreateDownloadResponse(packageMemoryStream, "示例.xlsx", "application/octet-stream")
+        /// </summary>
+        /// <param name="bytes">内存数据</param>
+        /// <param name="originfilename">文件名称（未EnCode）</param>
+        /// <param name="contenttype">application/octet-stream</param>
+        /// <param name="statuscode">服务器状态码</param>
+        /// <param name="ContentDisposition">响应头Disposition的值</param>
+        /// <returns></returns>
+        public static HttpResponseMessage CreateDownloadBytesResponse(
+            byte[] bytes, string originfilename,
+            string contenttype = "application/octet-stream", HttpStatusCode statuscode = HttpStatusCode.OK, string ContentDisposition = "attachment")
+        {
+            HttpResponseMessage response = new HttpResponseMessage(statuscode);
+            response.Content = new StreamContent(new MemoryStream(bytes));
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(contenttype);//application/octet-stream
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue(ContentDisposition);
+            response.Content.Headers.ContentDisposition.FileName = HttpUtility.UrlEncode(originfilename);//file.xls用ContentType：application/vnd.ms-excel   
+            return response;
+        }
+
+        /// <summary>
         /// 返回数据和服务器处理状态
         /// </summary>
         /// <param name="code">服务器状态码</param>

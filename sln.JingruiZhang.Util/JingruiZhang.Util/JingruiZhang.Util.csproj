@@ -3,12 +3,12 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.12</Version>
+    <Version>0.1.13</Version>
     <Description>常用工具类</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/JingruiZhang/rep.JingruiZhang.Util</PackageProjectUrl>
-    <PackageReleaseNotes>0.1.12
-# 添加 参考 PostMan 的带 Cookie 请求方法: Post_WithFile_Cookie 和 Get_Cookie</PackageReleaseNotes>
+    <PackageReleaseNotes>0.1.13
+# 添加 Get_Bytes_Cookie</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
