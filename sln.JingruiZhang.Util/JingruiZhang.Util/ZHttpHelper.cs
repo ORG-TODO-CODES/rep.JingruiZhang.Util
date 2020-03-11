@@ -443,5 +443,36 @@ Content-Type: image/svg+xml
             response.Close();
             return Allbuffer;
         }
+
+        /// <summary>
+        /// 发送 delete 请求，适用于地址带有 QueryString 的地址，且需要使用 Cookie 字符串
+        /// </summary>
+        /// <param name="Url">请求地址</param>
+        /// <param name="postQueryPara">请参考可选参数值</param>
+        /// <param name="cookieStrLikePostman">请参考可选参数值</param>
+        /// <returns></returns>
+        public static string Delete_Query_Cookie(string Url = "https://xxxx/17333", string postQueryPara = "", string cookieStrLikePostman = "X-LENOVO-SESS-ID=270b8fd36a6d8; path=/; domain=.filen;")
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
+            request.Method = "DELETE";
+            if (cookieStrLikePostman != null)
+            {
+                request.Headers.Add("Cookie", cookieStrLikePostman);
+            }
+            //request.ContentType = "application/x-www-form-urlencoded";
+            //request.ContentLength = postQueryPara.Length;
+            //StreamWriter writer = new StreamWriter(request.GetRequestStream(), Encoding.ASCII);
+            //writer.Write(postQueryPara);
+            //writer.Close();
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            string encoding = response.ContentEncoding;
+            if (encoding == null || encoding.Length < 1)
+            {
+                encoding = "UTF-8"; //默认编码  
+            }
+            StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(encoding));
+            string retString = reader.ReadToEnd();
+            return retString;
+        }
     }
 }

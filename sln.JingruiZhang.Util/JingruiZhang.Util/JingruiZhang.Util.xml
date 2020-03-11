@@ -235,6 +235,15 @@
             <param name="cookies">cookie字符串（参考postman）</param>
             <param name="contentType">默认为二进制文件</param>
         </member>
+        <member name="M:JingruiZhang.Util.ZHttpHelper.Delete_Query_Cookie(System.String,System.String,System.String)">
+            <summary>
+            发送 delete 请求，适用于地址带有 QueryString 的地址，且需要使用 Cookie 字符串
+            </summary>
+            <param name="Url">请求地址</param>
+            <param name="postQueryPara">请参考可选参数值</param>
+            <param name="cookieStrLikePostman">请参考可选参数值</param>
+            <returns></returns>
+        </member>
         <member name="T:JingruiZhang.Util.ZImageHelper">
             <summary>
             Image 帮助类
