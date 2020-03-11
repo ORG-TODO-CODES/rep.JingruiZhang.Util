@@ -250,6 +250,7 @@ Content-Type: image/svg+xml
         /// <param name="postQueryPara">请参考可选参数值</param>
         /// <param name="cookieStrLikePostman">请参考可选参数值</param>
         /// <returns></returns>
+        [Obsolete("建议使用 Post_WithFile_Cookie")]
         public static string Post_Query_Cookie(string Url, string postQueryPara = "Key1=EncodedVal&key2=EncodedValue2", string cookieStrLikePostman = "X-LENOVO-SESS-ID=270b8fd36a6d8; path=/; domain=.filen;")
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
