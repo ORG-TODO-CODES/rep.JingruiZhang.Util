@@ -3,11 +3,11 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.16</Version>
+    <Version>0.1.17</Version>
     <Description>常用工具类</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/JingruiZhang/rep.JingruiZhang.Util</PackageProjectUrl>
-    <PackageReleaseNotes>0.1.16
+    <PackageReleaseNotes>0.1.17
 # 添加文件夹拷贝</PackageReleaseNotes>
   </PropertyGroup>
 
