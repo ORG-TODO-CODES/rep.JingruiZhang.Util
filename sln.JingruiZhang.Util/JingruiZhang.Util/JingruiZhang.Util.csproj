@@ -3,21 +3,22 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.15</Version>
+    <Version>0.1.16</Version>
     <Description>常用工具类</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/JingruiZhang/rep.JingruiZhang.Util</PackageProjectUrl>
-    <PackageReleaseNotes>0.1.15
-# 废弃 Post_Query_Cookie</PackageReleaseNotes>
+    <PackageReleaseNotes>0.1.16
+# 添加文件夹拷贝</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
     <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
+    <DocumentationFile>C:\codes_self\rep.JingruiZhang.Util\sln.JingruiZhang.Util\JingruiZhang.Util\JingruiZhang.Util.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
     <DefineConstants>TRACE;DEBUG;NET45</DefineConstants>
-    <DocumentationFile>D:\01_gits\rep.JingruiZhang.Util\sln.JingruiZhang.Util\JingruiZhang.Util\JingruiZhang.Util.xml</DocumentationFile>
+    <DocumentationFile>C:\codes_self\rep.JingruiZhang.Util\sln.JingruiZhang.Util\JingruiZhang.Util\JingruiZhang.Util.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net45'">

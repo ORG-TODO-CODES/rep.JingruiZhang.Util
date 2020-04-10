@@ -126,12 +126,21 @@
             文件操作帮助类
             </summary>
         </member>
+        <member name="M:JingruiZhang.Util.ZFileHelper.CopyDir(System.String,System.String)">
+            <summary>
+            拷贝文件夹
+            </summary>
+            <param name="resource">该目录是已存在的，如：C:\A\Dir1</param>
+            <param name="dest">该目录是拷贝后才存在的，如:C:\B\Dir1</param>
+        </member>
         <member name="M:JingruiZhang.Util.ZFileHelper.WriteToNewPath(System.String,System.Byte[],System.IO.FileMode,System.IO.FileAccess)">
             <summary>
             将指定 bytes 写入到新文件
             </summary>
             <param name="newfilePath">指定新文件的路径（文件会自动创建）</param>
             <param name="bytes">文件内容</param>
+            <param name="mode">使用枚举值</param>
+            <param name="accesscfg">使用枚举值</param>
             <returns></returns>
         </member>
         <member name="M:JingruiZhang.Util.ZFileHelper.ReadFromPath(System.String)">

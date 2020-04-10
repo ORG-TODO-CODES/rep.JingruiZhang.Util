@@ -13,10 +13,67 @@ namespace JingruiZhang.Util
     public class ZFileHelper
     {
         /// <summary>
+        /// 拷贝文件夹
+        /// </summary>
+        /// <param name="resource">该目录是已存在的，如：C:\A\Dir1</param>
+        /// <param name="dest">该目录是拷贝后才存在的，如:C:\B\Dir1</param>
+        public static void CopyDir(string resource, string dest)
+        {
+            // 参数判空
+            // --------
+            #region ...
+            if (String.IsNullOrWhiteSpace(resource))
+            {
+                throw new ArgumentNullException(resource);
+            }
+            if (String.IsNullOrWhiteSpace(dest))
+            {
+                throw new ArgumentNullException(dest);
+            }
+            #endregion
+
+            // 判断文件夹是否存在
+            // ------------------
+            #region ...
+            if (!Directory.Exists(resource))
+            {
+                throw new Exception(String.Format("文件夹{0}不存在", resource));
+            }
+            #endregion
+
+            // 创建 dest 文件夹
+            if (!Directory.Exists(dest))
+            {
+                Directory.CreateDirectory(dest);
+            }
+
+            string[] childdirs = Directory.GetDirectories(resource);
+            for (int i = 0; i < childdirs.Length; i++)
+            {
+                // 获取 childdirs 的名字，用于拼接
+                // -------------------------------
+                string thisChildName = Path.GetFileName(childdirs[i]);
+
+                // C:\A\Dir1\c1 => C:\B\Dir1\[c1]
+                CopyDir(childdirs[i], Path.Combine(dest, thisChildName));
+            }
+
+            string[] childFiles = Directory.GetFiles(resource);
+            for (int i = 0; i < childFiles.Length; i++)
+            {
+                // C:\A\Dir1\1.txt => C:\B\Dir1\[1.txt]
+                string thisChildName = Path.GetFileName(childFiles[i]);
+                File.Copy(childFiles[i], Path.Combine(dest, thisChildName));
+            }
+        }
+
+        /// <summary>
         /// 将指定 bytes 写入到新文件
         /// </summary>
         /// <param name="newfilePath">指定新文件的路径（文件会自动创建）</param>
         /// <param name="bytes">文件内容</param>
+        /// <param name="mode">使用枚举值</param>
+        /// <param name="accesscfg">使用枚举值</param>
         /// <returns></returns>
         public static void WriteToNewPath(string newfilePath, byte[] bytes, FileMode mode, FileAccess accesscfg)
         {
