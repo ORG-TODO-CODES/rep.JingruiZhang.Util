@@ -49,7 +49,7 @@ namespace JingruiZhang.Util
         /// <summary>
         /// 处理接收到的消息，并作响应，参考此库源码来编写重写
         /// </summary>
-        public virtual async void ProcessRequestAndResponse(ArraySegment<byte> buffer, WebSocketReceiveResult receivedResult)
+        public virtual void ProcessRequestAndResponse(ArraySegment<byte> buffer, WebSocketReceiveResult receivedResult)
         {
             string recvMsg = Encoding.UTF8.GetString(buffer.Array, 0
                 , receivedResult.Count);
@@ -67,7 +67,7 @@ namespace JingruiZhang.Util
             // ------------------------------------------------------
             for (int i = 0; i < _sockets.Count; i++)
             {
-                await _sockets[i].SendAsync(sendBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
+                _sockets[i].SendAsync(sendBuffer, WebSocketMessageType.Text, true, CancellationToken.None);
             }
         }
 
