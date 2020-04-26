@@ -391,5 +391,44 @@
             </summary>
             <param name="data">业务数据对象</param>
         </member>
+        <member name="T:JingruiZhang.Util.ZWebSocketBaseApiController">
+            <summary>
+            具有 WebSocket 功能的基类，目前正在测试 NET45 框架下的功能，DotNetCore 暂未测试；使用时请注意 ApiController 或 ControllerBase 所依赖类库的 nuget 包版本
+            </summary>
+        </member>
+        <member name="F:JingruiZhang.Util.ZWebSocketBaseApiController._sockets">
+            <summary>
+            记录的客户端
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ZWebSocketBaseApiController.GetConnect(System.String)">
+            <summary>
+            连接
+            </summary>
+            <param name="cname">客户端标识</param>
+            <returns></returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZWebSocketBaseApiController.ProcessRequestAndResponse(System.ArraySegment{System.Byte},System.Net.WebSockets.WebSocketReceiveResult)">
+            <summary>
+            处理接收到的消息，并作响应，参考此库源码来编写重写
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ZWebSocketBaseApiController.ProcessRequest(System.Web.WebSockets.AspNetWebSocketContext)">
+            <summary>
+            接受信息和发送信息
+            </summary>
+        </member>
+        <member name="T:JingruiZhang.Util.ZWebSocketClientHelper">
+            <summary>
+            WebSocket 客户端帮助类
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ZWebSocketClientHelper.SendMsg(System.String,System.String)">
+            <summary>
+            连接url，发送广播消息，并断开
+            </summary>
+            <param name="wsOrWssUrl"></param>
+            <param name="data"></param>
+        </member>
     </members>
 </doc>
