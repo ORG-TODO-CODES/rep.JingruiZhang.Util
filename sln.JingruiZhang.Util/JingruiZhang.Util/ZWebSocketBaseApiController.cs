@@ -56,7 +56,7 @@ namespace JingruiZhang.Util
 
             // 一个简单处理：小写转大写
             // ------------------------
-            recvMsg = recvMsg.ToUpper();
+            //recvMsg = recvMsg.ToUpper();
 
             // ArraySegment 提高性能？
             // ----------------------
