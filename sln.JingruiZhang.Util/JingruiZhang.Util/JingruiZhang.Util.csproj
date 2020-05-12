@@ -3,12 +3,12 @@
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.22</Version>
+    <Version>0.1.23</Version>
     <Description>常用工具类</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/JingruiZhang/rep.JingruiZhang.Util</PackageProjectUrl>
-    <PackageReleaseNotes>0.1.22
-# 添加极光推送帮助类</PackageReleaseNotes>
+    <PackageReleaseNotes>0.1.23
+# 添加 ZFileHelper.CompressSelected 方法</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net45|AnyCPU'">
@@ -41,6 +41,10 @@
 
   <ItemGroup Condition="'$(TargetFramework)'=='net45'">
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.4" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='net45'">
+    <PackageReference Include="ICSharpCode.SharpZipLib.dll" Version="0.85.4.369" />
   </ItemGroup>
 
 </Project>

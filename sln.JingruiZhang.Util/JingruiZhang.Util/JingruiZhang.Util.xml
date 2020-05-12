@@ -126,6 +126,14 @@
             文件操作帮助类
             </summary>
         </member>
+        <member name="M:JingruiZhang.Util.ZFileHelper.CompressSelected(System.String,System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            压缩多个文件项（文件或文件夹）方法
+            </summary>
+            <param name="parentDirPath">当前多选项所处于的父目录（末尾需要确保有“\”）</param>
+            <param name="multiSelectedDirOrFiles">多个文件或文件夹的物理路径，每一项末尾不要有“\”</param>
+            <param name="GzipFileName">目标zip文件物理路径</param>
+        </member>
         <member name="M:JingruiZhang.Util.ZFileHelper.CopyDir(System.String,System.String)">
             <summary>
             拷贝文件夹
@@ -294,6 +302,25 @@
             </summary>
             <param name="imageBase64">指定图片的 base64</param>
             <returns>扩展名（不包含.）</returns>
+        </member>
+        <member name="T:JingruiZhang.Util.ZJPushHelper">
+            <summary>
+            极光推送
+            </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ZJPushHelper.Push(System.String,System.String,System.Collections.Generic.List{System.String},System.String,System.String,System.Object,System.Boolean,System.String)">
+            <summary>
+            按别名推送消息
+            </summary>
+            <param name="appKey">appKey</param>
+            <param name="masterSecret">masterSecret</param>
+            <param name="alias">多个别名</param>
+            <param name="allalert">推送的内容：【2020-04-27 11:39:42】【XXX】于项目【XXX】中添加了问题【sss  】</param>
+            <param name="androidtitle">问题模块</param>
+            <param name="ios_extraobj">额外的数据对象</param>
+            <param name="apns_production">是否为生产环境</param>
+            <param name="jiguangPostUrl">极光推送api地址</param>
+            <returns></returns>
         </member>
         <member name="M:JingruiZhang.Util.ZListHelper.ConcatToString(System.Collections.Generic.List{System.String},System.Char)">
             <summary>

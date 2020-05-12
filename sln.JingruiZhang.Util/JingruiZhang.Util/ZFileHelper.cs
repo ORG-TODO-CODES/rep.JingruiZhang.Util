@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ICSharpCode.SharpZipLib.Checksums;
+using ICSharpCode.SharpZipLib.Zip;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +14,132 @@ namespace JingruiZhang.Util
     /// </summary>
     public class ZFileHelper
     {
+        /// <summary>
+        /// 压缩多个文件项（文件或文件夹）方法
+        /// </summary>
+        /// <param name="parentDirPath">当前多选项所处于的父目录（末尾需要确保有“\”）</param>
+        /// <param name="multiSelectedDirOrFiles">多个文件或文件夹的物理路径，每一项末尾不要有“\”</param>
+        /// <param name="GzipFileName">目标zip文件物理路径</param>
+        [Obsolete("不支持DotNetCore")]
+        public static void CompressSelected(string parentDirPath, List<string> multiSelectedDirOrFiles, string GzipFileName)
+        {
+            //创建文件流
+            // ---------
+            FileStream pCompressFile = new FileStream(GzipFileName, FileMode.Create);
+
+            // 使用文件流创建zip输出流
+            // -----------------------
+            using (ZipOutputStream zipoutputstream = new ZipOutputStream(pCompressFile))
+            {
+                // 获取 dirPath 目录下的所有文件
+                // -----------------------------
+                Crc32 crc = new Crc32();
+                Dictionary<string, DateTime> fileList = GetAllFiles(multiSelectedDirOrFiles);
+
+                // 遍历每个文件并进行 ZipEntry 的构造
+                // ----------------------------------
+                foreach (KeyValuePair<string, DateTime> item in fileList)
+                {
+                    // 如果是文件
+                    // ----------
+                    if (File.Exists(item.Key))
+                    {
+                        // 将文件压缩到压缩包中
+                        // --------------------
+                        #region ...
+                        FileStream fs = new FileStream(item.Key.ToString(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                        // FileStream fs = File.OpenRead(item.Key.ToString());
+                        byte[] buffer = new byte[fs.Length];
+                        fs.Read(buffer, 0, buffer.Length);
+                        string thisEntryName = item.Key.Substring(parentDirPath.Length);
+                        ZipEntry entry = new ZipEntry(thisEntryName);
+                        entry.DateTime = item.Value;
+                        entry.Size = fs.Length;
+                        fs.Close();
+                        crc.Reset();
+                        crc.Update(buffer);
+                        entry.Crc = crc.Value;
+                        zipoutputstream.PutNextEntry(entry);
+                        zipoutputstream.Write(buffer, 0, buffer.Length);
+                        #endregion
+                    }
+                    else if (Directory.Exists(item.Key))
+                    {
+                        // 将文件夹压缩到压缩包中
+                        // ----------------------
+                        #region ...
+                        var di = new DirectoryInfo(item.Key);
+                        var difiles = di.GetFiles();
+                        var didirs = di.GetDirectories();
+                        if (didirs.Length == 0 && difiles.Length == 0)
+                        {
+                            string thisEntryName = item.Key.Substring(parentDirPath.Length);
+                            if (!thisEntryName.EndsWith("/"))
+                            {
+                                thisEntryName += "/";
+                            }
+                            ZipEntry entry = new ZipEntry(thisEntryName);
+                            zipoutputstream.PutNextEntry(entry);
+                        }
+                        #endregion
+                    }
+                }
+            }
+        }
+
+
+        // 私有方法
+        // --------
+        #region ...
+        private static Dictionary<string, DateTime> GetAllFiles(List<string> filePathOrDirPath)
+        {
+            if (filePathOrDirPath == null)
+            {
+                return null;
+            }
+            Dictionary<string, DateTime> FilesList = new Dictionary<string, DateTime>();
+            for (int i = 0; i < filePathOrDirPath.Count; i++)
+            {
+                if (File.Exists(filePathOrDirPath[i]))
+                {
+                    FileInfo file = new FileInfo(filePathOrDirPath[i]);
+                    FilesList.Add(file.FullName, file.LastWriteTime);
+                }
+                else if (Directory.Exists(filePathOrDirPath[i]))
+                {
+                    DirectoryInfo dirinfo = new DirectoryInfo(filePathOrDirPath[i]);
+
+                    // 额外把文件夹保存到 FilesList 中
+                    FilesList.Add(filePathOrDirPath[i], dirinfo.LastWriteTime);
+
+                    GetAllDirFiles(dirinfo, FilesList);
+                    GetAllDirsFiles(dirinfo.GetDirectories(), FilesList);
+                }
+            }
+            return FilesList;
+        }
+
+        private static void GetAllDirsFiles(DirectoryInfo[] dirs, Dictionary<string, DateTime> filesList)
+        {
+            foreach (DirectoryInfo dir in dirs)
+            {
+                foreach (FileInfo file in dir.GetFiles("."))
+                {
+                    filesList.Add(file.FullName, file.LastWriteTime);
+                }
+                GetAllDirsFiles(dir.GetDirectories(), filesList);
+            }
+        }
+
+        private static void GetAllDirFiles(DirectoryInfo dir, Dictionary<string, DateTime> filesList)
+        {
+            foreach (FileInfo file in dir.GetFiles())
+            {
+                filesList.Add(file.FullName, file.LastWriteTime);
+            }
+        }
+        #endregion
+
         /// <summary>
         /// 拷贝文件夹
         /// </summary>
