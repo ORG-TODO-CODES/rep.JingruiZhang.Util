@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +14,19 @@ namespace JingruiZhang.Util
     /// </summary>
     public class ZProcessHelper
     {
+        /// <summary>
+        /// 测试某端口是否处理监听状态
+        /// </summary>
+        /// <param name="port">端口号</param>
+        /// <returns></returns>
+        public static bool TestPortInUse(int port)
+        {
+            IPGlobalProperties ipProperties = IPGlobalProperties.GetIPGlobalProperties();
+            IPEndPoint[] ipEndPoints = ipProperties.GetActiveTcpListeners();
+            var ep = ipEndPoints.FirstOrDefault(x => x.Port == port);
+            return ep != null;
+        }
+
         /// <summary>
         /// 后台执行java -jar 命令的辅助方法（起源于接口服务中静默转换Office文档为pdf。）
         /// </summary>
