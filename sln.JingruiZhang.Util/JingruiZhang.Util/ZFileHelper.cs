@@ -19,8 +19,99 @@ namespace JingruiZhang.Util
     /// </summary>
     public class ZFileHelper
     {
+        /// <summary>
+        /// 根据流计算Header字符串
+        /// </summary>
+        /// <param name="stream">文件流或内存流等</param>
+        /// <returns>Header字符串，配合GetHeaderByExtName使用</returns>
+        public static string GetHeaderByBytes(Stream stream)
+        {
+            string fileclass = "";
+            using (BinaryReader reader = new BinaryReader(stream))
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    fileclass += reader.ReadByte().ToString();
+                }
+            }
+            return fileclass;
+        }
+
+        /// <summary>
+        /// 根据扩展名（如：.jpg) 得到可能的Header字符串（用于根据内容判断实际类型）
+        /// </summary>
+        /// <param name="extname">（如：.jpg) </param>
+        /// <returns>字符串集合，配合 GetHeaderByBytes 方法使用</returns>
+        public static List<string> GetHeaderByExtName(string extname)
+        {
+            if (String.IsNullOrWhiteSpace(extname))
+            {
+                return null;
+            }
+            extname = extname.ToLower();
+            switch (extname)
+            {
+                case ".jpg":
+                    return new List<string>() { "255216" };
+                case ".doc":
+                case ".xls":
+                case ".ppt":
+                case ".wps":
+                    return new List<string>() { "208207" };
+                case ".docx":
+                case ".pptx":
+                case ".xlsx":
+                case ".zip":
+                case ".mmap":
+                    return new List<string>() { "8075" };
+                case ".txt":
+                    return new List<string>() { "5150", "4946", "104116", "239187" };
+                case ".rar":
+                    return new List<string>() { "8297" };
+                case ".pdf":
+                    return new List<string>() { "3780" };
+                case ".gif":
+                    return new List<string>() { "7173" };
+                case ".png":
+                    return new List<string>() { "13780" };
+                case ".bmp":
+                    return new List<string>() { "6677" };
+                case ".aspx":
+                case ".asp":
+                case ".sql":
+                    return new List<string>() { "239187" };
+                case ".xml":
+                    return new List<string>() { "6063" };
+                case ".htm":
+                case ".html":
+                    return new List<string>() { "6033" };
+                case ".js":
+                    return new List<string>() { "4742" };
+                case ".accdb":
+                case ".mdb":
+                    return new List<string>() { "01" };
+                case ".exe":
+                case ".dll":
+                    return new List<string>() { "7790" };
+                case ".psd":
+                    return new List<string>() { "5666" };
+                case ".rdp":
+                    return new List<string>() { "255254" };
+                case ".torrent":
+                    return new List<string>() { "10056" };
+
+                case ".bat":
+                    return new List<string>() { "64101" };
+                case ".sgf":
+                    return new List<string>() { "4059" };
+
+                default:
+                    return new List<string>();
+            }
+        }
+
 #if NET45
-                /// <summary>
+        /// <summary>
         /// 压缩多个文件项（文件或文件夹）方法
         /// </summary>
         /// <param name="parentDirPath">当前多选项所处于的父目录（末尾需要确保有“\”）</param>
