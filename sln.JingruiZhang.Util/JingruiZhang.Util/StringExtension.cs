@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -173,6 +174,16 @@ namespace JingruiZhang.Util
 #endif
         }
 
+        /// <summary>
+        /// 将字符串转为JObject。转换后可以使用中括号进行索引
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static JObject ConvertToJObject(this string input)
+        {
+            JObject jo = input == null ? JObject.Parse("{}") : JObject.Parse(input.Replace("&nbsp;", ""));
+            return jo;
+        }
 
         /// <summary>
         /// 字符串转 Int32
