@@ -497,5 +497,12 @@
             <param name="wsOrWssUrl"></param>
             <param name="data"></param>
         </member>
+        <member name="M:JingruiZhang.Util.ZWebSocketClientHelper.SendMsg2(System.String,System.String)">
+            <summary>
+            连接 url，向服务器端发消息
+            </summary>
+            <param name="wsOrWssUrl">ws或wss地址</param>
+            <param name="data">要发送的字符串</param>
+        </member>
     </members>
 </doc>
