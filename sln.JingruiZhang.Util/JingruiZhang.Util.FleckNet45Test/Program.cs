@@ -1,6 +1,7 @@
 ﻿using Fleck;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -14,15 +15,16 @@ namespace JingruiZhang.Util.FleckNet45Test
     {
         static void Main(string[] args)
         {
-            // pfx 文件路径准备
-            // ----------------
-            string assemblyPath = Assembly.GetExecutingAssembly().Location;
-            string assemblyDirPath = Path.GetDirectoryName(assemblyPath);
-            string pfxPath = Path.Combine(assemblyDirPath, "ResourceFiles", "probim_cn_2021_12_0000.pfx");
+            // 配置项读取
+            // ----------
+            string BIND_port = ConfigurationManager.AppSettings["BIND_port"];
+            string BIND_useSSL = ConfigurationManager.AppSettings["BIND_useSSL"];
+            string BIND_pfxFileName = ConfigurationManager.AppSettings["BIND_pfxFileName"];
+            string BIND_pfxFilePassword = ConfigurationManager.AppSettings["BIND_pfxFilePassword"];
 
             // 监听地址准备
             // ------------
-            string listenUrl = "wss://0.0.0.0:8083";
+            string listenUrl = String.Format("{0}://0.0.0.0:{1}", BIND_useSSL == "1" ? "wss" : "ws", BIND_port);
 
             //// 测试：判断文件是否存在
             //// -----------------------
@@ -38,7 +40,16 @@ namespace JingruiZhang.Util.FleckNet45Test
 
             // 添加 SSL 证书
             // -------------
-            serverObj.Certificate = new System.Security.Cryptography.X509Certificates.X509Certificate2(pfxPath, "0000", X509KeyStorageFlags.Exportable | X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet);
+            if (BIND_useSSL == "1")
+            {
+                // pfx 文件路径准备
+                // ----------------
+                string assemblyPath = Assembly.GetExecutingAssembly().Location;
+                string assemblyDirPath = Path.GetDirectoryName(assemblyPath);
+                string pfxPath = Path.Combine(assemblyDirPath, "ResourceFiles", BIND_pfxFileName);
+
+                serverObj.Certificate = new System.Security.Cryptography.X509Certificates.X509Certificate2(pfxPath, BIND_pfxFilePassword, X509KeyStorageFlags.Exportable | X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet);
+            }
 
             serverObj.Start((cfg) =>
             {
