@@ -75,6 +75,13 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="M:JingruiZhang.Util.StringExtension.ConvertToJObject(System.String)">
+            <summary>
+            将字符串转为JObject。转换后可以使用中括号进行索引
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="M:JingruiZhang.Util.StringExtension.ToInt32(System.String,System.Int32)">
             <summary>
             字符串转 Int32
@@ -125,6 +132,20 @@
             <summary>
             文件操作帮助类
             </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ZFileHelper.GetHeaderByBytes(System.IO.Stream)">
+            <summary>
+            根据流计算Header字符串
+            </summary>
+            <param name="stream">文件流或内存流等</param>
+            <returns>Header字符串，配合GetHeaderByExtName使用</returns>
+        </member>
+        <member name="M:JingruiZhang.Util.ZFileHelper.GetHeaderByExtName(System.String)">
+            <summary>
+            根据扩展名（如：.jpg) 得到可能的Header字符串（用于根据内容判断实际类型）
+            </summary>
+            <param name="extname">（如：.jpg) </param>
+            <returns>字符串集合，配合 GetHeaderByBytes 方法使用</returns>
         </member>
         <member name="M:JingruiZhang.Util.ZFileHelper.CompressSelected(System.String,System.Collections.Generic.List{System.String},System.String)">
             <summary>
@@ -360,6 +381,13 @@
             <summary>
             执行进程辅助类
             </summary>
+        </member>
+        <member name="M:JingruiZhang.Util.ZProcessHelper.TestPortInUse(System.Int32)">
+            <summary>
+            测试某端口是否处理监听状态
+            </summary>
+            <param name="port">端口号</param>
+            <returns></returns>
         </member>
         <member name="M:JingruiZhang.Util.ZProcessHelper.RunJavaJarAtBackground(System.String,System.String)">
             <summary>
