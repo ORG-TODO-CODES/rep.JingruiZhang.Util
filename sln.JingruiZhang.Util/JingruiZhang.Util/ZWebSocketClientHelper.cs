@@ -42,12 +42,14 @@ namespace JingruiZhang.Util
 
         }
 
+        public List<string> datas { get; private set; }
+
         #region 一次性发送 WebSocket 消息给服务器端
         WebSocket4Net.WebSocket websocket;
         string data;
 
         /// <summary>
-        /// 连接 url，向服务器端发消息
+        /// 连接 url，向服务器端发消息， 不可以频繁调用，如果需要发送多条，请使用支持集合参数的重载
         /// </summary>
         /// <param name="wsOrWssUrl">ws或wss地址</param>
         /// <param name="data">要发送的字符串</param>
@@ -76,9 +78,30 @@ namespace JingruiZhang.Util
 
         private void websocket_Opened(object sender, EventArgs e)
         {
-            websocket.Send(this.data);
+            if (this.data != null)
+            {
+                websocket.Send(this.data);
+            }
+            if (this.datas != null && this.datas.Count > 0)
+            {
+                for (int i = 0; i < this.datas.Count; i++)
+                {
+                    websocket.Send(this.datas[i]);
+                }
+            }
             websocket.Close();
         }
         #endregion
+
+        public void SendMsg2(string wsOrWssUrl, List<string> datas)
+        {
+            this.datas = datas;
+            websocket = new WebSocket4Net.WebSocket(wsOrWssUrl);
+            websocket.Opened += websocket_Opened;
+            websocket.Closed += websocket_Closed;
+            websocket.Error += Websocket_Error;
+            websocket.MessageReceived += websocket_MessageReceived;
+            websocket.Open();
+        }
     }
 }
